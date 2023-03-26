@@ -1,5 +1,6 @@
 package com.lkk.demo.config;
 
+import okhttp3.OkHttpClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -17,5 +18,11 @@ public class Config {
     @Bean
     public RestTemplate getRestTemplate(){
         return  new RestTemplate();
+    }
+
+
+    @Bean
+    public OkHttpClient getOkClient(){
+        return  new OkHttpClient();
     }
 }

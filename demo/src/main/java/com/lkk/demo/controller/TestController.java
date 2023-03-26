@@ -1,5 +1,8 @@
 package com.lkk.demo.controller;
 
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -28,17 +31,25 @@ public class TestController {
     private RestTemplate restTemplate;
 
 
-    private HttpEntity objectHttpEntity = new HttpEntity();
+    @Autowired
+    private OkHttpClient okHttpClient;
 
     @RequestMapping(value = "/json", method = RequestMethod.POST)
     public void postJson() {
         try {
-
+            HttpEntity objectHttpEntity = new HttpEntity();
             ResponseEntity<Object> exchange = restTemplate.exchange(urlJson, HttpMethod.POST, objectHttpEntity,
                     Object.class);
         } catch (Exception r) {
             r.printStackTrace();
         }
+    }
 
+
+
+    @RequestMapping(value = "/json1",method = RequestMethod.POST)
+    public void okHttpClient(){
+        Request request = new Request().url(urlJson).method("POST", null).build();
+        String string = okHttpClient.newCall(request).execute().body().string();
     }
 }
